@@ -25,6 +25,8 @@ module.exports = {
   globals: {
     beforeAll: true,
     afterAll: true,
+    beforeEach: true,
+    afterEach: true,
     before: true,
     after: true,
     jest:  true,

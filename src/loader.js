@@ -1,4 +1,4 @@
-export default function LoadSegment (token) {
+export default function LoadSegment (token, options) {
   // Create a queue, but don't obliterate an existing one!
   var analytics = (window.analytics = window.analytics || [])
 
@@ -74,7 +74,7 @@ export default function LoadSegment (token) {
 
   // Add a version to keep track of what's in the wild.
   analytics.SNIPPET_VERSION = '4.1.0'
-  analytics.load(token)
+  analytics.load(token, options)
 
   // Make the first page call to load the integrations. If
   // you'd like to manually name or tag the page, edit or

@@ -1,68 +1,109 @@
 import Loader from './loader'
 
+const defaultOptions = {
+  integrations: {
+    'All': true
+  }
+}
+
+function defaultOptionsMapper (options) {
+  return options
+}
+
+function extendProperties (properties) {
+  return properties
+}
+
 export default class SegmentTracker {
-  constructor ({ key, options = {}, integrations = { 'All': true }, config = {}, store, router } = {}) {
+  constructor (opts = {}) {
+    const {
+      key,
+      mixinName = '$segment',
+      propertiesMapper = extendProperties,
+      optionsMapper = defaultOptionsMapper,
+      options = defaultOptions,
+      config = {},
+      routing = {},
+      store
+    } = opts
     if (!key) {
       throw new Error('Segment key need to be set on install options.')
     }
     this.store = store
-    this.router = router
+    this.routing = routing
     this.config = config
+    this.mixinName = mixinName
+    this.optionsMapper = optionsMapper.bind(this)
+    this.propertiesMapper = propertiesMapper.bind(this)
     this.options = options
-    this.integrations = integrations
-    this.analytics = Loader(key)
-    this.analytics.debug(Boolean(this.options.debug))
+    Loader(key, this.options)
+    window.analytics.debug(Boolean(this.options.debug))
+    this.initVueRouterGuard()
   }
 
-  click (obj) {
+  initVueRouterGuard () {
+    if (!this.routing.vueRouter) {
+      return
+    }
 
+    if (this.routing.ignoredViews) {
+      this.routing.ignoredViews = this.routing.ignoredViews.map(view => view.toLowerCase())
+    }
+
+    if (!this.routing.preferredProperty) {
+      this.routing.preferredProperty = 'path'
+    }
+
+    this.routing.vueRouter.afterEach(to => {
+      if (this.routing.ignoredViews && this.routing.ignoredViews.indexOf(to[this.routing.preferredProperty].toLowerCase()) !== -1) {
+        return
+      }
+      this.view(to.meta.analytics || to[this.routing.preferredProperty], this.routing.ignoredModules)
+    })
+
+    return this.routing.ignoredViews
   }
 
-  view (obj) {
-
+  extendProperties (opts) {
+    return this.optionsMapper({
+      ...this.options,
+      ...opts
+    })
   }
 
-  fire (obj) {
-
+  click (name, properties, options, cb) {
+    return window.analytics.track(`Click ${name}`, this.propertiesMapper(properties), this.extendProperties(options), cb)
   }
 
-  input (obj) {
-
+  view (name, properties, options, cb) {
+    return window.analytics.page(name, { ...this.propertiesMapper(properties), ...this.extendProperties(options) }, cb)
   }
 
-  trackEvent (obj) {
-
+  fire (name, properties, options, cb) {
+    return window.analytics.track(name, this.propertiesMapper(properties), this.extendProperties(options), cb)
   }
 
-  addTransaction () {
-
+  input (name, properties, options, cb) {
+    return window.analytics.track(`input ${name}`, this.propertiesMapper(properties), this.extendProperties(options), cb)
   }
 
-  addItem () {
-
+  trackEvent (name, properties, options, cb) {
+    return window.analytics.track(name, this.propertiesMapper(properties), this.extendProperties(options), cb)
   }
 
-  trackTransaction () {
-
+  identity (id, traits, options, cb) {
+    return window.analytics.identity(id, traits, this.extendProperties(options), cb)
   }
 
-  clearTransactions () {
-
+  group (id, traits, options, cb) {
+    return window.analytics.group(id, traits, this.extendProperties(options), cb)
   }
 
-  identity () {
-
+  alias (id, traits, options, cb) {
+    return window.analytics.alias(id, traits, this.extendProperties(options), cb)
   }
 
-  reset () {
-
-  }
-
-  setAlias () {
-
-  }
-
-  setSuperProperties () {
-
+  setSuperProperties (opts) {
+    this.options = opts
   }
 }
