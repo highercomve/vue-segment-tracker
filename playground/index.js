@@ -2,7 +2,6 @@ import Vue from 'Vue'
 import * as VueSegmentTracker from '../src/index'
 
 Vue.use(VueSegmentTracker, {
-  key: process.env.SEGMENT_KEY,
   propertiesMapper (properties) {
     return {
       thisWillBeOnEveryEvent: true,

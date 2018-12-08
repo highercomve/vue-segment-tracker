@@ -33,9 +33,9 @@ export default class SegmentTracker {
     this.routing = routing
     this.config = config
     this.mixinName = mixinName
+    this.options = options
     this.optionsMapper = optionsMapper.bind(this)
     this.propertiesMapper = propertiesMapper.bind(this)
-    this.options = options
     Loader(key, this.options)
     window.analytics.debug(Boolean(this.options.debug))
     this.initVueRouterGuard()
