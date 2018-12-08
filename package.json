@@ -1,6 +1,6 @@
 {
   "name": "vue-segment-tracker",
-  "version": "0.1.1",
+  "version": "0.1.2",
   "description": "Vue wrapper for segment, adds mixins and directives to send events to segment",
   "main": "lib/index.js",
   "files": [
@@ -68,10 +68,9 @@
     "parcel-bundler": "^1.10.3",
     "vue-eslint-parser": "^2.0.3",
     "vue-jest": "^3.0.0",
-    "vue-template-compiler": "^2.5.17"
-  },
-  "dependencies": {
+    "vue-template-compiler": "^2.5.17",
     "vue": "^2.5.17",
     "vuex": "^3.0.1"
-  }
+  },
+  "dependencies": {}
 }
