@@ -19,6 +19,7 @@ export default class SegmentTracker {
     const {
       key,
       mixinName = '$segment',
+      directiveName = 'segment',
       propertiesMapper = extendProperties,
       optionsMapper = defaultOptionsMapper,
       options = defaultOptions,
@@ -33,6 +34,7 @@ export default class SegmentTracker {
     this.routing = routing
     this.config = config
     this.mixinName = mixinName
+    this.directiveName = directiveName
     this.options = options
     this.optionsMapper = optionsMapper.bind(this)
     this.propertiesMapper = propertiesMapper.bind(this)

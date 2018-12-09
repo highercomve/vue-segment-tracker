@@ -8,7 +8,7 @@ function mixin (Vue, tracker) {
 function install (Vue, opts = {}) {
   const tracker = new SegmentTracker(opts)
   const directive = DirectiveFactory(tracker.mixinName)
-  Vue.directive(tracker.mixinName.replace('$', ''), directive)
+  Vue.directive(tracker.directiveName, directive)
   mixin(Vue, tracker)
 }
 

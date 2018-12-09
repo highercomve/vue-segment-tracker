@@ -15,6 +15,7 @@ import * as VueSegmentTracker from '../src/index'
 Vue.use(VueSegmentTracker, {
   key: SEGMENT_KEY, // pass your segment key
   mixinName: '$segment', // how the mixin is will be call, default: '$segment'
+  directiveName: 'segment', // how the mixin is will be call, default: 'segment'
   // optional options
   options: {
     // default segment options
