@@ -86,7 +86,7 @@ export default class SegmentTracker {
   }
 
   input (name, properties, options, cb) {
-    return window.analytics.track(`input ${name}`, this.propertiesMapper(properties), this.extendProperties(options), cb)
+    return window.analytics.track(`Input ${name}`, this.propertiesMapper(properties), this.extendProperties(options), cb)
   }
 
   trackEvent (name, properties, options, cb) {
@@ -103,6 +103,10 @@ export default class SegmentTracker {
 
   alias (id, traits, options, cb) {
     return window.analytics.alias(id, traits, this.extendProperties(options), cb)
+  }
+
+  trackLink (element, name, properties, options, cb) {
+    return window.analytics.trackLink(element, `Click ${name}`, this.propertiesMapper(properties), this.extendProperties(options), cb)
   }
 
   setSuperProperties (opts) {
