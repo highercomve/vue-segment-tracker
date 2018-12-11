@@ -10,7 +10,7 @@ yarn add -D vue-segment-tracker
 
 ```js
 import Vue from 'Vue'
-import * as VueSegmentTracker from '../src/index'
+import * as VueSegmentTracker from 'vue-segment-tracker'
 
 Vue.use(VueSegmentTracker, {
   key: SEGMENT_KEY, // pass your segment key
@@ -71,7 +71,7 @@ Vue.use(VueSegmentTracker, {
 
 ```js
 import Vue from 'Vue'
-import * as VueSegmentTracker from '../src/index'
+import * as VueSegmentTracker from 'vue-segment-tracker'
 
 Vue.use(VueSegmentTracker, {
   key: process.env.SEGMENT_KEY,
