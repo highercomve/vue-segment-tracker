@@ -51,7 +51,11 @@ Vue.use(VueSegmentTracker, {
       thisWillBeOnEveryEvent: true,
       ...options
     }
-  }
+  },
+  /**
+   * extend {Object}
+   */
+  extend: JavascriptObjectForExtension // receive a javascript object that will be used to extend the librery
 })
 ```
 

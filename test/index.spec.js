@@ -168,4 +168,16 @@ describe('Package load', () => {
       undefined
     ])
   })
+
+  it('Support extend property', () => {
+    localVue.use(VueSegment, {
+      key: 'algo',
+      extend: {
+        myNewAwesomeMethod () {
+          return this
+        }
+      }
+    })
+    expect(localVue.prototype.$segment.myNewAwesomeMethod).toBeDefined()
+  })
 })

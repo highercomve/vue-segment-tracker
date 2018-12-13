@@ -8,6 +8,11 @@ Vue.use(VueSegmentTracker, {
       thisWillBeOnEveryEvent: true,
       ...properties
     }
+  },
+  extend: {
+    myNewAwesomeMethod () {
+      return this
+    }
   }
 })
 Vue.config.productionTip = false
